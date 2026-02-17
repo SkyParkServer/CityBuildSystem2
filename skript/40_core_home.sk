@@ -1,0 +1,89 @@
+brig command /sethome [<homeName:string>]:
+    trigger:
+        if sender is not player:
+            cbError(sender, "Only players can run this command.")
+            stop
+
+        if {_homeName} is not set:
+            set {_homeName} to "home"
+
+        set {_alreadyExists} to false
+        if {cb.homes::%uuid of player%::%{_homeName}%} is set:
+            set {_alreadyExists} to true
+
+        set {_currentHomes} to size of {cb.homes::%uuid of player%::*}
+        set {_homeLimit} to {cb.player::%uuid of player%::home-limit}
+        if {_homeLimit} is not set:
+            set {_homeLimit} to {cb.const.default-home-limit}
+
+        if {_alreadyExists} is false:
+            if {_currentHomes} >= {_homeLimit}:
+                cbError(player, "You reached your home limit (&e%{_homeLimit}%&c).")
+                stop
+
+        set {cb.homes::%uuid of player%::%{_homeName}%} to location of player
+        cbSuccess(player, "Home &e%{_homeName}%&a saved.")
+
+brig command /home [<homeName:string>]:
+    arguments:
+        if sender is player:
+            set suggestions of arg "homeName" to indexes of {cb.homes::%uuid of player%::*}
+    trigger:
+        if sender is not player:
+            cbError(sender, "Only players can run this command.")
+            stop
+
+        if {_homeName} is not set:
+            set {_homeName} to "home"
+
+        set {_targetLocation} to {cb.homes::%uuid of player%::%{_homeName}%}
+        if {_targetLocation} is not set:
+            cbError(player, "Home &e%{_homeName}%&c does not exist.")
+            stop
+
+        if cbHasCooldown("home", player) is true:
+            set {_remaining} to cbCooldownRemaining("home", player)
+            cbError(player, "You can use /home again in %{_remaining}%.")
+            stop
+
+        cbStartCooldown("home", player, 3)
+        teleport player to {_targetLocation}
+        cbSuccess(player, "Teleported to home &e%{_homeName}%&a.")
+
+brig command /delhome [<homeName:string>]:
+    arguments:
+        if sender is player:
+            set suggestions of arg "homeName" to indexes of {cb.homes::%uuid of player%::*}
+    trigger:
+        if sender is not player:
+            cbError(sender, "Only players can run this command.")
+            stop
+
+        if {_homeName} is not set:
+            set {_homeName} to "home"
+
+        if {cb.homes::%uuid of player%::%{_homeName}%} is not set:
+            cbError(player, "Home &e%{_homeName}%&c does not exist.")
+            stop
+
+        delete {cb.homes::%uuid of player%::%{_homeName}%}
+        cbSuccess(player, "Home &e%{_homeName}%&a deleted.")
+
+brig command /homes:
+    trigger:
+        if sender is not player:
+            cbError(sender, "Only players can run this command.")
+            stop
+
+        if size of {cb.homes::%uuid of player%::*} is 0:
+            cbError(player, "You have no homes. Use /sethome.")
+            stop
+
+        set {_listText} to ""
+        loop {cb.homes::%uuid of player%::*}:
+            if {_listText} is "":
+                set {_listText} to loop-index
+            else:
+                set {_listText} to "%{_listText}%, %loop-index%"
+
+        cbMessage(player, "&7Your homes: &e%{_listText}%")
