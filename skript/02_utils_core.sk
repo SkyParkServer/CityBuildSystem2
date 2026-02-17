@@ -23,7 +23,7 @@ function cbCooldownRemaining(cooldownName: text, target: player) :: timespan:
         return 0 seconds
 
     if {_targetDate} is less than or equal to now:
-        delete {cb.cooldown::%{_cooldownName}%::%uuid of {_target}%}
+        set {cb.cooldown::%{_cooldownName}%::%uuid of {_target}%} to now
         return 0 seconds
 
     return difference between {_targetDate} and now

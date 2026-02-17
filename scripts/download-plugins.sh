@@ -28,6 +28,7 @@ download_plugin "skript-reflect-2.6.3.jar" "https://github.com/SkriptLang/skript
 download_plugin "SkBee-3.16.1.jar" "https://cdn.modrinth.com/data/a0tlbHZO/versions/YUe8KJhT/SkBee-3.16.1.jar"
 download_plugin "skript-yaml-1.7.2.jar" "https://github.com/Sashie/skript-yaml/releases/download/v1.7.2/skript-yaml-1.7.2.jar"
 download_plugin "SkBriggy-1.5.7.jar" "https://cdn.modrinth.com/data/EU37SyNH/versions/gtk8qBvt/SkBriggy-1.5.7.jar"
+download_plugin "Skcrew-4.4.2.jar" "https://gitlab.crewpvp.xyz/-/project/1/uploads/a0053961b564a4a1d395b1bead7a19bd/Skcrew-4.4.2.jar"
 
 download_plugin "Vault.jar" "https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar"
 download_plugin "LuckPerms-Bukkit-5.5.17.jar" "https://cdn.modrinth.com/data/Vebnzrzj/versions/OrIs0S6b/LuckPerms-Bukkit-5.5.17.jar"

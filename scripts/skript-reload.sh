@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-docker exec -i citybuild-paper rcon-cli "skript reload all"
+if [[ $# -gt 0 ]]; then
+  target="$1"
+  docker exec -i citybuild-paper rcon-cli "skript reload ${target}"
+else
+  docker exec -i citybuild-paper rcon-cli "skript reload all"
+fi
