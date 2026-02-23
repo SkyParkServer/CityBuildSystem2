@@ -1,0 +1,21 @@
+const:
+  prefix: "&8[&6CityBuild&8]&r"
+  no-perm: "&cYou do not have permission for this command."
+  default-spawn-cooldown-seconds: 5
+  default-home-limit: 1
+
+# These were Skript vars; we keep defaults here, but actual persisted values live in globals.yml
+spawn:
+  cooldown-seconds: 5
+
+debug:
+  enabled: false
+
+mysql:
+  host: "127.0.0.1"
+  port: 3306
+  database: "citybuild"
+  user: "root"
+  password: "password"
+  useSSL: false
+

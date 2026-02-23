@@ -1,0 +1,50 @@
+name: CityBuildSystem
+version: 1.0.0-mysql
+main: de.skypark.citybuild.CityBuildSystem
+api-version: 1.21
+depend: [Vault]
+
+commands:
+  cb:
+    description: CityBuild admin command
+    permission: citybuild.admin
+  setspawn:
+    description: Set the server spawn point (CityBuildSystem)
+    permission: citybuild.admin.spawn
+  spawn:
+    description: Teleport to spawn (CityBuildSystem)
+  home:
+    description: Open homes menu or teleport to a home
+    permission: cb.home.use
+  homes:
+    description: Open homes menu
+    permission: cb.home.use
+  sethome:
+    description: Set a home
+    permission: cb.home.set.use
+  delhome:
+    description: Delete a home
+    permission: cb.home.del.use
+  balance:
+    description: Show balance
+  eco:
+    description: Economy admin command
+    permission: citybuild.admin.economy
+  workbench:
+    description: Open crafting table
+    aliases: [wb, craft]
+    permission: cb.workbench.use
+  anvil:
+    description: Open anvil
+    aliases: [amboss]
+    permission: cb.anvil.use
+  sign:
+    description: Sign an item
+    aliases: [unterschrift, unterschift]
+    permission: cb.sign.use
+  repair:
+    description: Repair held item
+    permission: cb.repair.use
+  wetter:
+    description: Change weather
+    permission: cb.wetter.use
