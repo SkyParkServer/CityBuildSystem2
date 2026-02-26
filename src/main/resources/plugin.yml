@@ -1,8 +1,9 @@
 name: CityBuildSystem
-version: 1.0.0-mysql
+version: 1.0.5-mysql-rainbow
 main: de.skypark.citybuild.CityBuildSystem
 api-version: 1.21
 depend: [Vault]
+softdepend: [LuckPerms, PlotSquared]
 
 commands:
   cb:
@@ -10,12 +11,12 @@ commands:
     permission: citybuild.admin
   setspawn:
     description: Set the server spawn point (CityBuildSystem)
-    permission: citybuild.admin.spawn
+    permission: cb.spawn.set.use
   spawn:
     description: Teleport to spawn (CityBuildSystem)
   home:
     description: Open homes menu or teleport to a home
-    permission: cb.home.use
+    permission: cb.spawn.use
   homes:
     description: Open homes menu
     permission: cb.home.use
@@ -48,3 +49,63 @@ commands:
   wetter:
     description: Change weather
     permission: cb.wetter.use
+  enderchest:
+    description: Open shared ender chest (MySQL)
+    aliases: [ec]
+    permission: cb.enderchest.use
+  speed:
+    description: Set your movement speed (2-10)
+    permission: cb.speed.use
+  hat:
+    description: Put held item on your head
+    permission: cb.hat.use
+  setwarp:
+    description: Set a warp (server-local)
+    permission: cb.warp.set
+  delwarp:
+    description: Delete a warp (server-local)
+    permission: cb.warp.del
+  warp:
+    description: Teleport to a warp (server-local)
+    permission: cb.warp.warps
+  warps:
+    description: List warps (server-local)
+    permission: cb.warp.warps
+
+  msg:
+    description: Send a private message (cross-server)
+    permission: cb.msg.use
+  r:
+    description: Reply to last message
+    permission: cb.msg.reply.use
+  msgtoggle:
+    description: Toggle private messages
+    permission: cb.msg.msgtoggle
+  invsee:
+    description: View another player's inventory (online)
+    permission: cb.invsee.use
+  near:
+    description: List nearby players
+    permission: cb.near.use
+
+  feed:
+    description: Fill hunger
+    permission: cb.feed.use
+  heal:
+    description: Heal yourself or others
+    permission: cb.heal.use
+  kristalle:
+    description: Kristalle admin commands
+    permission: cb.kristalle.admin
+  werbung:
+    description: Broadcast Werbung with teleport
+    permission: cb.werbung.use
+  werbungtp:
+    description: Internal teleport for werbung click
+  bank:
+    description: Bank commands
+    permission: cb.bank.use
+  regenbogen:
+    description: Toggle rainbow armor
+    permission: cb.regenbogen.use
+

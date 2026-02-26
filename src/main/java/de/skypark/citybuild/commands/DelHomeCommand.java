@@ -46,6 +46,7 @@ public class DelHomeCommand implements CommandExecutor {
         }
 
         homes.deleteHome(player, homeName);
+        homes.refreshNameCache(player);
         plugin.messages().success(player, "Home &e" + homeName + "&a deleted.");
         return true;
     }

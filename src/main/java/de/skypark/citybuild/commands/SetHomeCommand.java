@@ -51,6 +51,7 @@ public class SetHomeCommand implements CommandExecutor {
         }
 
         homes.saveHome(player, homeName);
+        homes.refreshNameCache(player);
         plugin.messages().success(player, "Home &e" + homeName + "&a saved.");
         return true;
     }

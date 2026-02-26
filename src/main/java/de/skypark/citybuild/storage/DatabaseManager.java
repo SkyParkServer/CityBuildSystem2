@@ -61,6 +61,82 @@ public class DatabaseManager {
                 ) CHARACTER SET utf8mb4
             """);
             st.executeUpdate("""
+                CREATE TABLE IF NOT EXISTS cb_enderchest (
+                  uuid VARCHAR(36) PRIMARY KEY,
+                  contents MEDIUMTEXT NOT NULL
+                ) CHARACTER SET utf8mb4
+            """);
+            st.executeUpdate("""
+                CREATE TABLE IF NOT EXISTS cb_warps (
+                  server_name VARCHAR(64) NOT NULL,
+                  warp_name VARCHAR(32) NOT NULL,
+                  world_name VARCHAR(64) NOT NULL,
+                  x DOUBLE NOT NULL,
+                  y DOUBLE NOT NULL,
+                  z DOUBLE NOT NULL,
+                  yaw FLOAT NOT NULL,
+                  pitch FLOAT NOT NULL,
+                  updated_at BIGINT NOT NULL,
+                  PRIMARY KEY (server_name, warp_name)
+                ) CHARACTER SET utf8mb4
+            """);
+
+            st.executeUpdate("""
+                CREATE TABLE IF NOT EXISTS cb_msg_toggle (
+                  uuid VARCHAR(36) PRIMARY KEY,
+                  enabled TINYINT(1) NOT NULL DEFAULT 1
+                ) CHARACTER SET utf8mb4
+            """);
+            st.executeUpdate("""
+                CREATE TABLE IF NOT EXISTS cb_msg_state (
+                  uuid VARCHAR(36) PRIMARY KEY,
+                  last_in_from VARCHAR(36) NULL,
+                  last_out_to VARCHAR(36) NULL,
+                  updated_at BIGINT NOT NULL
+                ) CHARACTER SET utf8mb4
+            """);
+            st.executeUpdate("""
+                CREATE TABLE IF NOT EXISTS cb_messages (
+                  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                  to_uuid VARCHAR(36) NOT NULL,
+                  from_uuid VARCHAR(36) NOT NULL,
+                  from_name VARCHAR(32) NOT NULL,
+                  message TEXT NOT NULL,
+                  created_at BIGINT NOT NULL,
+                  delivered TINYINT(1) NOT NULL DEFAULT 0
+                ) CHARACTER SET utf8mb4
+            """);
+
+            
+            st.executeUpdate("""
+                CREATE TABLE IF NOT EXISTS cb_crystals (
+                  uuid VARCHAR(36) PRIMARY KEY,
+                  amount INT NOT NULL DEFAULT 0
+                ) CHARACTER SET utf8mb4
+            """);
+
+            
+            st.executeUpdate("""
+                CREATE TABLE IF NOT EXISTS cb_bank (
+                  uuid VARCHAR(36) PRIMARY KEY,
+                  balance DOUBLE NOT NULL DEFAULT 0
+                ) CHARACTER SET utf8mb4
+            """);
+            st.executeUpdate("""
+                CREATE TABLE IF NOT EXISTS cb_werbung_cooldown (
+                  uuid VARCHAR(36) PRIMARY KEY,
+                  last_used BIGINT NOT NULL,
+                  server_name VARCHAR(64) NOT NULL,
+                  world_name VARCHAR(64) NOT NULL,
+                  x DOUBLE NOT NULL,
+                  y DOUBLE NOT NULL,
+                  z DOUBLE NOT NULL,
+                  yaw FLOAT NOT NULL,
+                  pitch FLOAT NOT NULL
+                ) CHARACTER SET utf8mb4
+            """);
+
+            st.executeUpdate("""
                 CREATE TABLE IF NOT EXISTS cb_homes (
                   uuid VARCHAR(36) NOT NULL,
                   server_name VARCHAR(64) NOT NULL,

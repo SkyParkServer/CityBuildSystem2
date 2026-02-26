@@ -1,7 +1,6 @@
 package de.skypark.citybuild.commands;
 
 import de.skypark.citybuild.CityBuildSystem;
-import de.skypark.citybuild.util.LocationUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,16 +21,13 @@ public class SetSpawnCommand implements CommandExecutor {
             return true;
         }
 
-        if (!sender.hasPermission("citybuild.admin.spawn")) {
-            plugin.messages().error(sender, plugin.settings().noPermissionMessage());
+        if (!player.hasPermission("cb.spawn.set.use")) {
+            player.sendMessage(plugin.messages().color("§6§lSkyPark §8» §7Du hast dazu keine Rechte!"));
             return true;
         }
 
-        String locText = LocationUtil.locToText(player.getLocation());
-        plugin.globals().setSpawnLocationText(locText);
-
-        plugin.messages().success(player, "Spawn has been updated.");
-        plugin.messages().debug("Spawn changed by " + player.getName() + " to " + locText);
+        plugin.spawnManager().setSpawn(player.getLocation());
+        plugin.messages().success(player, "Spawn gesetzt.");
         return true;
     }
 }

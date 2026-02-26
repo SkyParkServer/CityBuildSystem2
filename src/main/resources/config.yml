@@ -18,4 +18,5 @@ mysql:
   user: "root"
   password: "password"
   useSSL: false
+server-name: "server-a"
 

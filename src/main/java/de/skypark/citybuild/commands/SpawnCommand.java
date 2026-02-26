@@ -1,15 +1,11 @@
 package de.skypark.citybuild.commands;
 
 import de.skypark.citybuild.CityBuildSystem;
-import de.skypark.citybuild.util.DurationFormatUtil;
-import de.skypark.citybuild.util.LocationUtil;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.time.Duration;
 
 public class SpawnCommand implements CommandExecutor {
 
@@ -26,30 +22,19 @@ public class SpawnCommand implements CommandExecutor {
             return true;
         }
 
-        String locText = plugin.globals().spawnLocationText();
-        if (locText == null || locText.isEmpty()) {
-            plugin.messages().error(player, "Spawn is not configured yet. Use /setspawn first.");
+        if (!player.hasPermission("cb.spawn.use")) {
+            player.sendMessage(plugin.messages().color("§6§lSkyPark §8» §7Du hast dazu keine Rechte!"));
             return true;
         }
 
-        if (plugin.cooldowns().hasCooldown("spawn", player)) {
-            Duration remaining = plugin.cooldowns().cooldownRemaining("spawn", player);
-            plugin.messages().error(player, "You can use /spawn again in " + DurationFormatUtil.format(remaining) + ".");
-            return true;
-        }
-
-        int cooldownSeconds = plugin.globals().spawnCooldownSeconds();
-        // Skript logic: if {cb.spawn.cooldown-seconds} not set -> const default; our GlobalState already ensures.
-        plugin.cooldowns().startCooldown("spawn", player, cooldownSeconds);
-
-        Location spawn = LocationUtil.textToLoc(locText);
+        Location spawn = plugin.spawnManager().getSpawn();
         if (spawn == null) {
-            plugin.messages().error(player, "Spawn location is invalid or world is missing.");
+            plugin.messages().error(player, "Spawn ist nicht gesetzt.");
             return true;
         }
 
         player.teleport(spawn);
-        plugin.messages().success(player, "Teleported to spawn.");
+        plugin.messages().success(player, "Teleportiert.");
         return true;
     }
 }
